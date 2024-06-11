@@ -20,7 +20,7 @@ def main():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-        kk_rct.move_ip(-1, 0)
+        
         x = tmr%3200
         screen.blit(bg_img, [-x, 0])
         screen.blit(bg_img_2, [-x+1600, 0])
@@ -28,14 +28,19 @@ def main():
         screen.blit(bg_img_2, [-x+4800, 0])
         
         key_lst = pg.key.get_pressed() #全キーの押下状態
+        yoko = -1
+        tate = 0
+       
         if key_lst[pg.K_UP]: #上矢印キーが押されたら
-            kk_rct.move_ip(0, -1)
+            yoko,tate = -1, -1
         if key_lst[pg.K_DOWN]:
-            kk_rct.move_ip(0, +1)
+            yoko, tate = -1, +1
         if key_lst[pg.K_LEFT]: #上矢印キーが押されたら
-            kk_rct.move_ip(-1, 0)
+            yoko, tate = -1, 0
         if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip(+2, 0)
+            yoko, tate = +1, 0
+        kk_rct.move_ip(yoko,tate)
+        
         screen.blit(kk_img, kk_rct) #kk_imgをkk_rctの設定に従って貼り付け
         pg.display.update()
         tmr += 1
